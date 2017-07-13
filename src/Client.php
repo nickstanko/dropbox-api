@@ -217,12 +217,14 @@ class Client
      *
      * @link https://www.dropbox.com/developers/documentation/http/documentation#files-list_folder
      */
-    public function listFolder(string $path = '', bool $recursive = false): array
+    public function listFolder(string $path = '', bool $recursive = false, array $params = null): array
     {
         $parameters = [
             'path' => $this->normalizePath($path),
             'recursive' => $recursive,
         ];
+        if ($params != null)
+            $parameters = array_merge($parameters, $params);
 
         return $this->rpcEndpointRequest('files/list_folder', $parameters);
     }
